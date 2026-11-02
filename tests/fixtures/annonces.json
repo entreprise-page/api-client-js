@@ -1,0 +1,59 @@
+[
+    {
+        "id": "A202001221441",
+        "famille": "vente",
+        "type_avis": "annonce",
+        "date_parution": "2020-06-28",
+        "numero_departement": "75",
+        "tribunal": "Paris",
+        "parution": {
+            "publication": "A",
+            "numero": "20200122",
+            "numero_annonce": 1441,
+            "date": "2020-06-28",
+            "url": "https://www.bodacc.fr/pages/annonces-commerciales-detail/?q.id=id:A202001221441"
+        },
+        "personnes": [
+            {
+                "type_personne": "pm",
+                "libelle": "Google France",
+                "est_non_inscrit": false,
+                "denomination": "Google France",
+                "siren": "443061841",
+                "forme_juridique": "Société par actions simplifiée",
+                "capital": {
+                    "montant": 10000,
+                    "devise": "EUR",
+                    "est_variable": false
+                },
+                "adresse": {
+                    "voie": "8 rue de Londres",
+                    "code_postal": "75009",
+                    "ville": "Paris",
+                    "pays": "France"
+                },
+                "greffe": "Paris"
+            }
+        ],
+        "precedents_proprietaires": null,
+        "precedents_exploitants": [],
+        "etablissement": {
+            "origine_fonds": "Création",
+            "enseigne": "Chez Jean",
+            "activite": "restauration rapide"
+        },
+        "acte": {
+            "categorie_creation": "Création d'un fonds de commerce",
+            "date_commencement_activite": "2020-06-15",
+            "vente": {
+                "categorie": "Vente",
+                "date_effet": "2020-06-20",
+                "oppositions": [
+                    "Au fonds vendu"
+                ]
+            }
+        },
+        "jugement": null,
+        "radiation": null
+    }
+]

@@ -1,0 +1,37 @@
+{
+    "page": 1,
+    "nombre_par_page": 2,
+    "total_resultats": 100,
+    "resultats": [
+        {
+            "code": "43.22A",
+            "libelle": "Travaux d'installation d'eau et de gaz en tous locaux",
+            "section": "Construction",
+            "mots_cles": [
+                "plombier",
+                "plomberie",
+                "installation sanitaire",
+                "dépannage plomberie",
+                "fuite d'eau",
+                "salle de bain",
+                "robinetterie",
+                "chauffe-eau",
+                "plombier chauffagiste",
+                "installation de gaz",
+                "débouchage canalisation"
+            ],
+            "pertinence": 0.87
+        },
+        {
+            "code": "46.74B",
+            "libelle": "Commerce de gros de fournitures pour la plomberie et le chauffage",
+            "section": "Commerce",
+            "mots_cles": [
+                "grossiste plomberie",
+                "négoce chauffage sanitaire",
+                "distributeur sanitaire chauffage"
+            ],
+            "pertinence": 0.86
+        }
+    ]
+}

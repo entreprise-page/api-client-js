@@ -1,0 +1,18 @@
+[
+    {
+        "siren": "009743865",
+        "nom": "ASS COPRO 1 A 5 R VICTOR HUGO",
+        "localite": "35000",
+        "activite": "Administratif",
+        "active": true,
+        "slug": "ass-copro-1-a-5-r-victor-hugo-009743865"
+    },
+    {
+        "siren": "097380463",
+        "nom": "GAIN EMILE S A R L",
+        "localite": "64390",
+        "activite": "Construction",
+        "active": true,
+        "slug": "gain-emile-s-a-r-l-097380463"
+    }
+]

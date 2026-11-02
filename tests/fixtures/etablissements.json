@@ -1,0 +1,41 @@
+[
+    {
+        "siret": "00974386500017",
+        "est_siege": true,
+        "adresse": {
+            "numero_voie": null,
+            "type_et_nom_voie": "RUE VICTOR HUGO",
+            "complement": null,
+            "code_postal": "35000",
+            "commune": {
+                "code": "35238",
+                "libelle": "RENNES"
+            },
+            "departement": {
+                "code": "35",
+                "libelle": "Ille-et-Vilaine"
+            },
+            "region": {
+                "code": "53",
+                "libelle": "Bretagne"
+            },
+            "pays": {
+                "code": "FR",
+                "libelle": "France"
+            },
+            "coordonnees": {
+                "longitude": -1.675534,
+                "latitude": 48.112573
+            }
+        },
+        "est_actif": true,
+        "enseigne": null,
+        "convention_collective": null,
+        "activite_principale_exercee": {
+            "code": "81.10Z",
+            "libelle": "Activités combinées de soutien lié aux bâtiments",
+            "section": "Administratif"
+        },
+        "noms_de_domaine": []
+    }
+]

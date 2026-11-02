@@ -1,0 +1,82 @@
+{
+    "siren": "009743865",
+    "denomination_sociale": "ASS COPRO 1 A 5 R VICTOR HUGO",
+    "forme_juridique": {
+        "libelle": "Syndicat de copropriété",
+        "code": 9110,
+        "abreviation": null
+    },
+    "activite_principale_exercee": {
+        "code": "81.10Z",
+        "libelle": "Activités combinées de soutien lié aux bâtiments",
+        "section": "Administratif"
+    },
+    "numero_tva": "FR75009743865",
+    "identifiant_association": null,
+    "date_creation": "1994-12-25",
+    "date_cessation": null,
+    "capital_social": null,
+    "greffe": null,
+    "meta": {
+        "slug": "ass-copro-1-a-5-r-victor-hugo-009743865",
+        "est_actif": true,
+        "est_diffusable": true,
+        "total_etablissement_actif": 1,
+        "categorie_entreprise": "PME"
+    },
+    "effectif": {
+        "est_employeur": false,
+        "historiques": []
+    },
+    "siege_social": {
+        "siret": "00974386500017",
+        "est_siege": true,
+        "adresse": {
+            "numero_voie": null,
+            "type_et_nom_voie": "RUE VICTOR HUGO",
+            "complement": null,
+            "code_postal": "35000",
+            "commune": {
+                "code": "35238",
+                "libelle": "RENNES"
+            },
+            "departement": {
+                "code": "35",
+                "libelle": "Ille-et-Vilaine"
+            },
+            "region": {
+                "code": "53",
+                "libelle": "Bretagne"
+            },
+            "pays": {
+                "code": "FR",
+                "libelle": "France"
+            },
+            "coordonnees": {
+                "longitude": -1.675534,
+                "latitude": 48.112573
+            }
+        },
+        "est_actif": true,
+        "enseigne": null,
+        "convention_collective": null,
+        "activite_principale_exercee": {
+            "code": "81.10Z",
+            "libelle": "Activités combinées de soutien lié aux bâtiments",
+            "section": "Administratif"
+        },
+        "noms_de_domaine": []
+    },
+    "registre": {
+        "insee": {
+            "date_creation": "1994-12-25",
+            "date_mise_a_jour": "2012-05-05"
+        }
+    },
+    "finances": [],
+    "conventions": [],
+    "dirigeant": {
+        "personne_morale": [],
+        "personne_physique": []
+    }
+}

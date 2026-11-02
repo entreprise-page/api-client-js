@@ -1,0 +1,46 @@
+{
+  "name": "@entreprise-page/api-client",
+  "version": "0.0.0",
+  "description": "Client JavaScript de l'API entreprise.page, pour Node.js et le navigateur",
+  "license": "UNLICENSED",
+  "keywords": [
+    "entreprise.page",
+    "siren",
+    "siret",
+    "api"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "generate": "node bin/generate-models.ts ../../../api/docs/swagger.json src/models.ts",
+    "test": "node --test 'tests/**/*.test.ts'",
+    "typecheck": "tsc -p tsconfig.json",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "npm run format && npm run typecheck",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "prettier": "^3.9.0",
+    "typescript": "^7.0.2"
+  }
+}
