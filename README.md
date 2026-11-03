@@ -118,4 +118,6 @@ Les tests utilisent `node:test` et s'exécutent directement sur les sources Type
 
 ## Publication
 
-Pousser un tag `sdk-js/vX.Y.Z` lance le workflow `Publish JS SDK`, qui publie la version `X.Y.Z` sur npm avec le secret `NPM_TOKEN`.
+Le workflow `Publish JS SDK` extrait `sdk/js/api-client` avec `git subtree split` et le pousse sur le dépôt public [entreprise-page/api-client-js](https://github.com/entreprise-page/api-client-js), avec la clé de déploiement `SDK_JS_DEPLOY_KEY`. La branche `main` du dépôt public suit `main` d'ici à chaque modification du SDK.
+
+Pousser un tag `sdk-js/vX.Y.Z` pousse aussi le tag `vX.Y.Z` sur le dépôt public et publie la version `X.Y.Z` sur npm avec le secret `NPM_TOKEN`.

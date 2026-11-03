@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "Client JavaScript de l'API entreprise.page, pour Node.js et le navigateur",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/entreprise-page/api-client-js.git"
+  },
+  "homepage": "https://github.com/entreprise-page/api-client-js#readme",
   "keywords": [
     "entreprise.page",
     "siren",
