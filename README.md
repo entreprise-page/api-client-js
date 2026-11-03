@@ -101,23 +101,3 @@ Toutes les erreurs héritent de `EntreprisePageError`.
 | `InvalidArgumentError`                                                                         | paramètres invalides, détectés avant l'envoi                                                                       |
 
 Une requête annulée par `signal` rejette avec l'`AbortError` de `fetch`, sans conversion.
-
-## Développement
-
-```bash
-npm install
-npm test
-npm run lint       # prettier (vérification) puis tsc
-npm run format:fix # applique les corrections de style
-npm run build      # dist/
-```
-
-Les tests utilisent `node:test` et s'exécutent directement sur les sources TypeScript (Node 22.18 ou plus). La CI (job `sdk-js` du workflow `Testing`) lance le lint, les tests et le build en Node 22 et 24 dès qu'un fichier de `sdk/js/api-client` change.
-
-`src/models.ts` est généré depuis le swagger : après une modification des DTO Go et un `swag init`, lancer `npm run generate`. Le test `generated-models.test.ts` échoue tant que les modèles ne sont pas à jour. Les endpoints (`src/api`) sont écrits à la main, pour la même raison que dans le SDK PHP.
-
-## Publication
-
-Le workflow `Publish JS SDK` extrait `sdk/js/api-client` avec `git subtree split` et le pousse sur le dépôt public [entreprise-page/api-client-js](https://github.com/entreprise-page/api-client-js), avec la clé de déploiement `SDK_JS_DEPLOY_KEY`. La branche `main` du dépôt public suit `main` d'ici à chaque modification du SDK.
-
-Pousser un tag `sdk-js/vX.Y.Z` pousse aussi le tag `vX.Y.Z` sur le dépôt public et publie la version `X.Y.Z` sur npm avec le secret `NPM_TOKEN`.
