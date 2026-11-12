@@ -1,0 +1,37 @@
+{
+  "id": 3,
+  "nom": "Prospects",
+  "pagination": {
+    "total_page": 2,
+    "nombre_resultat": 2,
+    "nombre_resultat_par_page": 2,
+    "total_resultat": 3,
+    "page_en_cours": 1
+  },
+  "entreprises": [
+    {
+      "siren": "542051180",
+      "slug": "totalenergies-se-542051180",
+      "denomination": "TOTALENERGIES SE",
+      "activite_code": "70.10Z",
+      "activite_libelle": "Activités des sièges sociaux",
+      "adresse": "2 place Jean MILLIER 92400 Courbevoie",
+      "date_en_activite": "1954-01-01",
+      "date_en_cessation": null,
+      "est_diffusable": true,
+      "est_active": true
+    },
+    {
+      "siren": "552032534",
+      "slug": "552032534",
+      "denomination": null,
+      "activite_code": "70.10Z",
+      "activite_libelle": null,
+      "adresse": "",
+      "date_en_activite": "1955-01-01",
+      "date_en_cessation": "2024-12-31",
+      "est_diffusable": false,
+      "est_active": false
+    }
+  ]
+}

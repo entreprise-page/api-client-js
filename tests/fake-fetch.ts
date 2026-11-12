@@ -2,9 +2,12 @@ import { readFileSync } from 'node:fs';
 import { Client } from '../src/index.ts';
 
 export interface SentRequest {
+  method: string;
   url: URL;
   headers: Headers;
   signal: AbortSignal | null;
+  /** Corps envoyé, null sans corps. */
+  body: string | null;
 }
 
 /**
@@ -15,7 +18,13 @@ export class FakeFetch {
   readonly #queue: (Response | Error)[] = [];
 
   readonly fetch = async (input: string, init: RequestInit): Promise<Response> => {
-    this.requests.push({ url: new URL(input), headers: new Headers(init.headers), signal: init.signal ?? null });
+    this.requests.push({
+      method: init.method ?? 'GET',
+      url: new URL(input),
+      headers: new Headers(init.headers),
+      signal: init.signal ?? null,
+      body: typeof init.body === 'string' ? init.body : null,
+    });
     const next = this.#queue.shift();
     if (next === undefined) {
       throw new Error(`Aucune réponse préparée pour ${input}`);
@@ -28,7 +37,10 @@ export class FakeFetch {
   };
 
   willRespond(status: number, body: string): this {
-    this.#queue.push(new Response(body, { status, headers: { 'Content-Type': 'application/json' } }));
+    // Une réponse 204 ne peut pas avoir de corps, même vide.
+    this.#queue.push(
+      new Response(status === 204 ? null : body, { status, headers: { 'Content-Type': 'application/json' } }),
+    );
 
     return this;
   }

@@ -1182,6 +1182,394 @@ export function readSuggestion(data: Data.Json): Suggestion {
   };
 }
 
+export interface SuiviAjoutEntreprise {
+  /**
+   * Exemple : "552032534"
+   */
+  readonly siren: string;
+}
+
+/** @internal */
+export function readSuiviAjoutEntreprise(data: Data.Json): SuiviAjoutEntreprise {
+  return {
+    siren: Data.string(data, 'siren'),
+  };
+}
+
+export interface SuiviAlerte {
+  /**
+   * Exemple : true
+   */
+  readonly active: boolean;
+  readonly email: SuiviAlerteEmail;
+  /**
+   * Exemple : ["fermeture_entreprise","changement_denomination"]
+   */
+  readonly evenements: readonly string[];
+  /**
+   * EvenementsDisponibles sont ceux qu'une alerte peut demander.
+   * Exemple : ["changement_siege_social","fermeture_entreprise"]
+   */
+  readonly evenementsDisponibles: readonly string[];
+  /**
+   * Exemple : 1
+   */
+  readonly listeId: number;
+  readonly webhook: SuiviAlerteWebhook;
+}
+
+/** @internal */
+export function readSuiviAlerte(data: Data.Json): SuiviAlerte {
+  return {
+    active: Data.bool(data, 'active'),
+    email: Data.object(data, 'email', readSuiviAlerteEmail),
+    evenements: Data.stringList(data, 'evenements'),
+    evenementsDisponibles: Data.stringList(data, 'evenements_disponibles'),
+    listeId: Data.int(data, 'liste_id'),
+    webhook: Data.object(data, 'webhook', readSuiviAlerteWebhook),
+  };
+}
+
+export interface SuiviAlerteEmail {
+  /**
+   * Exemple : true
+   */
+  readonly active: boolean;
+  /**
+   * Exemple : ["veille@exemple.fr"]
+   */
+  readonly adresses: readonly string[];
+}
+
+/** @internal */
+export function readSuiviAlerteEmail(data: Data.Json): SuiviAlerteEmail {
+  return {
+    active: Data.bool(data, 'active'),
+    adresses: Data.stringList(data, 'adresses'),
+  };
+}
+
+export interface SuiviAlerteWebhook {
+  /**
+   * Exemple : false
+   */
+  readonly active: boolean;
+  /**
+   * Exemple : "5f1c9a0e"
+   */
+  readonly token: string;
+  /**
+   * Exemple : "https://exemple.fr/webhook"
+   */
+  readonly url: string;
+}
+
+/** @internal */
+export function readSuiviAlerteWebhook(data: Data.Json): SuiviAlerteWebhook {
+  return {
+    active: Data.bool(data, 'active'),
+    token: Data.string(data, 'token'),
+    url: Data.string(data, 'url'),
+  };
+}
+
+export interface SuiviConfigurationAlerte {
+  /**
+   * Exemple : true
+   */
+  readonly active: boolean;
+  readonly email: SuiviConfigurationAlerteEmail;
+  /**
+   * Exemple : ["fermeture_entreprise","changement_denomination"]
+   */
+  readonly evenements: readonly string[];
+  readonly webhook: SuiviConfigurationAlerteWebhook;
+}
+
+/** @internal */
+export function readSuiviConfigurationAlerte(data: Data.Json): SuiviConfigurationAlerte {
+  return {
+    active: Data.bool(data, 'active'),
+    email: Data.object(data, 'email', readSuiviConfigurationAlerteEmail),
+    evenements: Data.stringList(data, 'evenements'),
+    webhook: Data.object(data, 'webhook', readSuiviConfigurationAlerteWebhook),
+  };
+}
+
+export interface SuiviConfigurationAlerteEmail {
+  /**
+   * Exemple : true
+   */
+  readonly active: boolean;
+  /**
+   * Exemple : ["veille@exemple.fr"]
+   */
+  readonly adresses: readonly string[];
+}
+
+/** @internal */
+export function readSuiviConfigurationAlerteEmail(data: Data.Json): SuiviConfigurationAlerteEmail {
+  return {
+    active: Data.bool(data, 'active'),
+    adresses: Data.stringList(data, 'adresses'),
+  };
+}
+
+export interface SuiviConfigurationAlerteWebhook {
+  /**
+   * Exemple : false
+   */
+  readonly active: boolean;
+  /**
+   * Exemple : "5f1c9a0e"
+   */
+  readonly token: string;
+  /**
+   * Exemple : "https://exemple.fr/webhook"
+   */
+  readonly url: string;
+}
+
+/** @internal */
+export function readSuiviConfigurationAlerteWebhook(data: Data.Json): SuiviConfigurationAlerteWebhook {
+  return {
+    active: Data.bool(data, 'active'),
+    token: Data.string(data, 'token'),
+    url: Data.string(data, 'url'),
+  };
+}
+
+export interface SuiviCreationListe {
+  /**
+   * Exemple : "Partenaires"
+   */
+  readonly nom: string;
+}
+
+/** @internal */
+export function readSuiviCreationListe(data: Data.Json): SuiviCreationListe {
+  return {
+    nom: Data.string(data, 'nom'),
+  };
+}
+
+export interface SuiviEntreprise {
+  /**
+   * Exemple : "70.10Z"
+   */
+  readonly activiteCode: string;
+  /**
+   * Exemple : "Activités des sièges sociaux"
+   */
+  readonly activiteLibelle: string | null;
+  /**
+   * Exemple : "17 boulevard HAUSSMANN 75009 Paris"
+   */
+  readonly adresse: string;
+  /**
+   * Exemple : "1955-01-01"
+   */
+  readonly dateEnActivite: string | null;
+  /**
+   * Exemple : "2024-12-31"
+   */
+  readonly dateEnCessation: string | null;
+  /**
+   * Exemple : "DANONE"
+   */
+  readonly denomination: string | null;
+  /**
+   * Exemple : true
+   */
+  readonly estActive: boolean;
+  /**
+   * Exemple : true
+   */
+  readonly estDiffusable: boolean;
+  /**
+   * Exemple : "552032534"
+   */
+  readonly siren: string;
+  /**
+   * Exemple : "danone-552032534"
+   */
+  readonly slug: string;
+}
+
+/** @internal */
+export function readSuiviEntreprise(data: Data.Json): SuiviEntreprise {
+  return {
+    activiteCode: Data.string(data, 'activite_code'),
+    activiteLibelle: Data.nullableString(data, 'activite_libelle'),
+    adresse: Data.string(data, 'adresse'),
+    dateEnActivite: Data.nullableString(data, 'date_en_activite'),
+    dateEnCessation: Data.nullableString(data, 'date_en_cessation'),
+    denomination: Data.nullableString(data, 'denomination'),
+    estActive: Data.bool(data, 'est_active'),
+    estDiffusable: Data.bool(data, 'est_diffusable'),
+    siren: Data.string(data, 'siren'),
+    slug: Data.string(data, 'slug'),
+  };
+}
+
+export interface SuiviErreur {
+  /**
+   * Exemple : "Liste introuvable"
+   */
+  readonly erreur: string;
+}
+
+/** @internal */
+export function readSuiviErreur(data: Data.Json): SuiviErreur {
+  return {
+    erreur: Data.string(data, 'erreur'),
+  };
+}
+
+export interface SuiviImportSiren {
+  /**
+   * Exemple : "552032534,542051180"
+   */
+  readonly sirens: string;
+}
+
+/** @internal */
+export function readSuiviImportSiren(data: Data.Json): SuiviImportSiren {
+  return {
+    sirens: Data.string(data, 'sirens'),
+  };
+}
+
+export interface SuiviImportStatut {
+  /**
+   * Exemple : 1
+   */
+  readonly erreur: number;
+  /**
+   * Exemple : 2
+   */
+  readonly succes: number;
+  /**
+   * Exemple : 3
+   */
+  readonly total: number;
+}
+
+/** @internal */
+export function readSuiviImportStatut(data: Data.Json): SuiviImportStatut {
+  return {
+    erreur: Data.int(data, 'erreur'),
+    succes: Data.int(data, 'succes'),
+    total: Data.int(data, 'total'),
+  };
+}
+
+export interface SuiviListe {
+  /**
+   * Exemple : 1
+   */
+  readonly id: number;
+  /**
+   * Exemple : "Prospects"
+   */
+  readonly nom: string;
+}
+
+/** @internal */
+export function readSuiviListe(data: Data.Json): SuiviListe {
+  return {
+    id: Data.int(data, 'id'),
+    nom: Data.string(data, 'nom'),
+  };
+}
+
+export interface SuiviListeEntreprise {
+  readonly entreprises: readonly SuiviEntreprise[];
+  /**
+   * Exemple : 1
+   */
+  readonly id: number;
+  /**
+   * Exemple : "Prospects"
+   */
+  readonly nom: string;
+  readonly pagination: SuiviPagination;
+}
+
+/** @internal */
+export function readSuiviListeEntreprise(data: Data.Json): SuiviListeEntreprise {
+  return {
+    entreprises: Data.objectList(data, 'entreprises', readSuiviEntreprise),
+    id: Data.int(data, 'id'),
+    nom: Data.string(data, 'nom'),
+    pagination: Data.object(data, 'pagination', readSuiviPagination),
+  };
+}
+
+export interface SuiviListes {
+  readonly listes: readonly SuiviListe[];
+  /**
+   * Exemple : 5
+   */
+  readonly maxListe: number;
+}
+
+/** @internal */
+export function readSuiviListes(data: Data.Json): SuiviListes {
+  return {
+    listes: Data.objectList(data, 'listes', readSuiviListe),
+    maxListe: Data.int(data, 'max_liste'),
+  };
+}
+
+export interface SuiviPagination {
+  /**
+   * Exemple : 10
+   */
+  readonly nombreResultat: number;
+  /**
+   * Exemple : 10
+   */
+  readonly nombreResultatParPage: number;
+  /**
+   * Exemple : 1
+   */
+  readonly pageEnCours: number;
+  /**
+   * Exemple : 3
+   */
+  readonly totalPage: number;
+  /**
+   * Exemple : 25
+   */
+  readonly totalResultat: number;
+}
+
+/** @internal */
+export function readSuiviPagination(data: Data.Json): SuiviPagination {
+  return {
+    nombreResultat: Data.int(data, 'nombre_resultat'),
+    nombreResultatParPage: Data.int(data, 'nombre_resultat_par_page'),
+    pageEnCours: Data.int(data, 'page_en_cours'),
+    totalPage: Data.int(data, 'total_page'),
+    totalResultat: Data.int(data, 'total_resultat'),
+  };
+}
+
+export interface SuiviStatutEntreprise {
+  /**
+   * Exemple : true
+   */
+  readonly estSuivie: boolean;
+}
+
+/** @internal */
+export function readSuiviStatutEntreprise(data: Data.Json): SuiviStatutEntreprise {
+  return {
+    estSuivie: Data.bool(data, 'est_suivie'),
+  };
+}
+
 export interface VenteAnnonce {
   /**
    * Exemple : "Vente"

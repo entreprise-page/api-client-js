@@ -1,0 +1,8 @@
+{
+  "liste_id": 3,
+  "active": true,
+  "evenements": ["fermeture_entreprise", "changement_denomination"],
+  "email": {"active": true, "adresses": ["veille@exemple.fr"]},
+  "webhook": {"active": false, "url": "https://exemple.fr/webhook", "token": "5f1c9a0e"},
+  "evenements_disponibles": ["changement_siege_social", "changement_denomination", "fermeture_entreprise"]
+}

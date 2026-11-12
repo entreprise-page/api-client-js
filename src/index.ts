@@ -15,6 +15,7 @@ export type { EtablissementApi } from './api/etablissement-api.ts';
 export type { FormeJuridiqueApi } from './api/forme-juridique-api.ts';
 export type { PublicActiviteApi } from './api/public-activite-api.ts';
 export type { PublicEntrepriseApi } from './api/public-entreprise-api.ts';
+export type { SuiviApi, SuiviEntreprisesParams } from './api/suivi-api.ts';
 export type { EtablissementsParams, RechercheActiviteParams, RechercheEntrepriseParams } from './query.ts';
 export { DEFAULT_BASE_URL, USER_AGENT, type Fetch, type RequestOptions } from './transport.ts';
 export * from './errors.ts';

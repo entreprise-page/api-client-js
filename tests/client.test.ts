@@ -52,6 +52,7 @@ test('encode les segments de chemin', async () => {
 const erreurs = {
   'chaîne JSON': [404, '"entreprise 000000000 introuvable"', NotFoundError, 'entreprise 000000000 introuvable'],
   'objet error': [401, '{"error":"Clé d\'API inconnue"}', UnauthorizedError, "Clé d'API inconnue"],
+  'objet erreur du suivi': [404, '{"erreur":"Liste introuvable"}', NotFoundError, 'Liste introuvable'],
   quota: [429, '{"error":"Quota dépassé"}', TooManyRequestsError, 'Quota dépassé'],
   'requête invalide': [
     400,

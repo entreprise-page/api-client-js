@@ -5,6 +5,7 @@ import { ConventionCollectiveApi } from './api/convention-collective-api.ts';
 import { EntrepriseApi } from './api/entreprise-api.ts';
 import { EtablissementApi } from './api/etablissement-api.ts';
 import { FormeJuridiqueApi } from './api/forme-juridique-api.ts';
+import { SuiviApi } from './api/suivi-api.ts';
 import { InvalidArgumentError } from './errors.ts';
 import { DEFAULT_BASE_URL, isBrowser, Transport, USER_AGENT, type Fetch } from './transport.ts';
 
@@ -39,6 +40,7 @@ export class Client {
   #conventionsCollectives?: ConventionCollectiveApi;
   #formesJuridiques?: FormeJuridiqueApi;
   #compte?: CompteApi;
+  #suivi?: SuiviApi;
 
   constructor(options: ClientOptions) {
     if (typeof options.apiKey !== 'string' || options.apiKey.trim() === '') {
@@ -88,5 +90,10 @@ export class Client {
 
   compte(): CompteApi {
     return (this.#compte ??= new CompteApi(this.#transport));
+  }
+
+  /** Listes de suivi, entreprises suivies et alertes de l'organisation de la clé d'API. */
+  suivi(): SuiviApi {
+    return (this.#suivi ??= new SuiviApi(this.#transport));
   }
 }

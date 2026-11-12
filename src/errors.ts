@@ -91,7 +91,8 @@ export class InvalidArgumentError extends EntreprisePageError {
 }
 
 /**
- * L'API renvoie soit une chaîne JSON (`"message"`), soit un objet `{"error": "message"}`.
+ * L'API renvoie soit une chaîne JSON (`"message"`), soit un objet `{"error": "message"}`
+ * ou, pour le suivi, `{"erreur": "message"}`.
  */
 function extractMessage(response: Response, body: string): string {
   const fallback = `L'API a répondu ${response.status} ${response.statusText}`.trimEnd();
@@ -106,8 +107,13 @@ function extractMessage(response: Response, body: string): string {
   if (typeof decoded === 'string' && decoded !== '') {
     return decoded;
   }
-  if (typeof decoded === 'object' && decoded !== null && typeof (decoded as { error?: unknown }).error === 'string') {
-    return (decoded as { error: string }).error;
+  if (typeof decoded === 'object' && decoded !== null) {
+    for (const key of ['error', 'erreur']) {
+      const value = (decoded as Record<string, unknown>)[key];
+      if (typeof value === 'string' && value !== '') {
+        return value;
+      }
+    }
   }
 
   return fallback;

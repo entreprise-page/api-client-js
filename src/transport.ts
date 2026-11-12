@@ -40,31 +40,69 @@ export class Transport {
   }
 
   async get(path: string, query: Record<string, string> = {}, options: RequestOptions = {}): Promise<Json | unknown[]> {
+    return decode(await this.#send('GET', path, query, undefined, options));
+  }
+
+  /** Envoie un corps JSON (ou aucun corps) et décode la réponse. */
+  async post(path: string, body?: Json, options: RequestOptions = {}): Promise<Json | unknown[]> {
+    return decode(await this.#send('POST', path, {}, body, options));
+  }
+
+  /** Envoie un corps JSON sans attendre de contenu en retour (204). */
+  async postWithoutContent(path: string, body?: Json, options: RequestOptions = {}): Promise<void> {
+    await this.#send('POST', path, {}, body, options);
+  }
+
+  async put(path: string, body: Json, options: RequestOptions = {}): Promise<Json | unknown[]> {
+    return decode(await this.#send('PUT', path, {}, body, options));
+  }
+
+  /** Une suppression réussie ne renvoie pas de contenu (204). */
+  async delete(path: string, options: RequestOptions = {}): Promise<void> {
+    await this.#send('DELETE', path, {}, undefined, options);
+  }
+
+  /**
+   * @returns le corps de la réponse
+   */
+  async #send(
+    method: string,
+    path: string,
+    query: Record<string, string>,
+    body: Json | undefined,
+    options: RequestOptions,
+  ): Promise<string> {
     const search = Object.entries(query)
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
       .join('&');
     const url = this.#baseUrl + path + (search !== '' ? `?${search}` : '');
 
+    const init: RequestInit = { method, headers: this.#headers, signal: options.signal ?? null };
+    if (body !== undefined) {
+      init.headers = { ...this.#headers, 'Content-Type': 'application/json' };
+      init.body = JSON.stringify(body);
+    }
+
     const fetch = this.#fetch;
     let response: Response;
-    let body: string;
+    let text: string;
     try {
-      response = await fetch(url, { method: 'GET', headers: this.#headers, signal: options.signal ?? null });
-      body = await response.text();
+      response = await fetch(url, init);
+      text = await response.text();
     } catch (error) {
       // Une annulation demandée par l'appelant remonte telle quelle (AbortError), comme avec fetch.
       if (options.signal?.aborted) {
         throw error;
       }
 
-      throw new TransportError(`Échec de la requête GET ${path} : ${(error as Error).message}`, { cause: error });
+      throw new TransportError(`Échec de la requête ${method} ${path} : ${(error as Error).message}`, { cause: error });
     }
 
     if (response.status >= 400) {
-      throw ApiError.fromResponse(response, body);
+      throw ApiError.fromResponse(response, text);
     }
 
-    return decode(body);
+    return text;
   }
 }
 
@@ -73,8 +111,8 @@ export class Transport {
  *
  * @internal
  */
-export function segment(value: string): string {
-  return encodeURIComponent(value);
+export function segment(value: string | number): string {
+  return encodeURIComponent(String(value));
 }
 
 /**

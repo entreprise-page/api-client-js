@@ -47,21 +47,53 @@ const resultats = await client.entreprises().search({
 });
 ```
 
-| Méthode                                         | Endpoint                                             | Clé d'API | `PublicClient` |
-| ----------------------------------------------- | ---------------------------------------------------- | --------- | -------------- |
-| `entreprises().get(siren)`                      | `GET /organisation/entreprise/{siren}`               | oui       |                |
-| `entreprises().search(query)`                   | `GET /organisation/recherche`                        | oui       |                |
-| `entreprises().suggest(query, limit)`           | `GET /organisation/suggestion`                       | non       | oui            |
-| `etablissements().get(siret)`                   | `GET /organisation/etablissement/{siret}`            | oui       |                |
-| `etablissements().listBySiren(siren, filtres)`  | `GET /organisation/entreprise/{siren}/etablissement` | oui       |                |
-| `annonces().listBySiren(siren)`                 | `GET /organisation/entreprise/{siren}/annonce`       | oui       |                |
-| `activites().list()` / `get(code)`              | `GET /dictionnaire/activite[/{code}]`                | non       | oui            |
-| `activites().search(query)`                     | `GET /dictionnaire/recherche/activite`               | oui       |                |
-| `conventionsCollectives().list()` / `get(idcc)` | `GET /dictionnaire/convention-collective[/{code}]`   | non       | oui            |
-| `formesJuridiques().list()` / `get(code)`       | `GET /dictionnaire/forme-juridique[/{code}]`         | non       | oui            |
-| `compte().quota()`                              | `GET /quota`                                         | oui       |                |
+| Méthode                                                             | Endpoint                                                                | Clé d'API | `PublicClient` |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------- | --------- | -------------- |
+| `entreprises().get(siren)`                                          | `GET /organisation/entreprise/{siren}`                                  | oui       |                |
+| `entreprises().search(query)`                                       | `GET /organisation/recherche`                                           | oui       |                |
+| `entreprises().suggest(query, limit)`                               | `GET /organisation/suggestion`                                          | non       | oui            |
+| `etablissements().get(siret)`                                       | `GET /organisation/etablissement/{siret}`                               | oui       |                |
+| `etablissements().listBySiren(siren, filtres)`                      | `GET /organisation/entreprise/{siren}/etablissement`                    | oui       |                |
+| `annonces().listBySiren(siren)`                                     | `GET /organisation/entreprise/{siren}/annonce`                          | oui       |                |
+| `activites().list()` / `get(code)`                                  | `GET /dictionnaire/activite[/{code}]`                                   | non       | oui            |
+| `activites().search(query)`                                         | `GET /dictionnaire/recherche/activite`                                  | oui       |                |
+| `conventionsCollectives().list()` / `get(idcc)`                     | `GET /dictionnaire/convention-collective[/{code}]`                      | non       | oui            |
+| `formesJuridiques().list()` / `get(code)`                           | `GET /dictionnaire/forme-juridique[/{code}]`                            | non       | oui            |
+| `compte().quota()`                                                  | `GET /quota`                                                            | oui       |                |
+| `suivi().lists()` / `createList(nom)` / `deleteList(listeId)`       | `GET` / `POST /suivi/liste`, `DELETE /suivi/liste/{listeId}`            | oui       |                |
+| `suivi().companies({ listeId, page, parPage })`                     | `GET /suivi/entreprise`                                                 | oui       |                |
+| `suivi().isFollowed(siren)` / `unfollow(siren)`                     | `GET` / `DELETE /suivi/entreprise/{siren}`                              | oui       |                |
+| `suivi().follow(listeId, siren)` / `removeFromList(listeId, siren)` | `POST /suivi/liste/{listeId}/entreprise`, `DELETE …/entreprise/{siren}` | oui       |                |
+| `suivi().import(listeId, sirens)`                                   | `POST /suivi/liste/{listeId}/import`                                    | oui       |                |
+| `suivi().alert(listeId)` / `configureAlert(listeId, alerte)`        | `GET` / `PUT /suivi/liste/{listeId}/alerte`                             | oui       |                |
+| `suivi().enableAlert(listeId)` / `disableAlert(listeId)`            | `POST /suivi/liste/{listeId}/alerte/activer` / `desactiver`             | oui       |                |
 
 Toutes les méthodes acceptent en dernier argument `{ signal }` pour annuler la requête.
+
+### Suivi d'entreprises
+
+Les méthodes `suivi()` agissent sur les listes de suivi de l'organisation rattachée à la clé d'API, sans consommer le quota. Elles ne sont pas disponibles dans `PublicClient`.
+
+```ts
+const liste = await client.suivi().createList('Fournisseurs');
+await client.suivi().follow(liste.id, '552032534');
+
+// Un siren invalide ou introuvable compte comme une erreur sans interrompre l'import.
+const statut = await client.suivi().import(liste.id, ['542051180', '443061841']);
+
+const { entreprises } = await client.suivi().companies({ listeId: liste.id });
+for (const entreprise of entreprises) {
+  console.log(entreprise.siren, entreprise.denomination ?? '(non diffusable)');
+}
+
+// Remplace toute l'alerte : les événements possibles sont dans (await alert(id)).evenementsDisponibles.
+await client.suivi().configureAlert(liste.id, {
+  active: true,
+  evenements: ['fermeture_entreprise', 'changement_denomination'],
+  email: { active: true, adresses: ['veille@exemple.fr'] },
+  webhook: { active: false, url: '', token: '' },
+});
+```
 
 ## Côté navigateur
 
