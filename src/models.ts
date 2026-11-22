@@ -867,6 +867,10 @@ export function readPersonneAnnonce(data: Data.Json): PersonneAnnonce {
 
 export interface PersonneMorale {
   /**
+   * Exemple : true
+   */
+  readonly actif: boolean;
+  /**
    * Exemple : "ERNST & YOUNG ET AUTRES"
    */
   readonly denomination: string;
@@ -883,6 +887,7 @@ export interface PersonneMorale {
 /** @internal */
 export function readPersonneMorale(data: Data.Json): PersonneMorale {
   return {
+    actif: Data.bool(data, 'actif'),
     denomination: Data.string(data, 'denomination'),
     role: Data.nullableString(data, 'role'),
     siren: Data.nullableString(data, 'siren'),
@@ -890,6 +895,10 @@ export function readPersonneMorale(data: Data.Json): PersonneMorale {
 }
 
 export interface PersonnePhysique {
+  /**
+   * Exemple : true
+   */
+  readonly actif: boolean;
   /**
    * Exemple : "1980-01"
    */
@@ -911,6 +920,7 @@ export interface PersonnePhysique {
 /** @internal */
 export function readPersonnePhysique(data: Data.Json): PersonnePhysique {
   return {
+    actif: Data.bool(data, 'actif'),
     dateNaissance: Data.nullableString(data, 'date_naissance'),
     nom: Data.string(data, 'nom'),
     prenom: Data.nullableString(data, 'prenom'),

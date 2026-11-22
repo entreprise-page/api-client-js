@@ -76,7 +76,22 @@
     "finances": [],
     "conventions": [],
     "dirigeant": {
-        "personne_morale": [],
-        "personne_physique": []
+        "personne_morale": [
+            {
+                "denomination": "ERNST & YOUNG ET AUTRES",
+                "role": "Commissaire aux comptes titulaire",
+                "siren": "438476913",
+                "actif": false
+            }
+        ],
+        "personne_physique": [
+            {
+                "prenom": "Pierre",
+                "nom": "Dupont",
+                "role": "Syndic",
+                "date_naissance": "1980-01",
+                "actif": true
+            }
+        ]
     }
 }

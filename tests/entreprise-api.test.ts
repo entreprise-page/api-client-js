@@ -18,6 +18,10 @@ test('get hydrate l’entreprise', async () => {
   assert.equal(entreprise.siegeSocial?.adresse.coordonnees?.latitude, 48.112573);
   assert.equal(entreprise.registre.rcs, null, 'rcs est omis par l’API quand il est absent');
   assert.deepEqual(entreprise.finances, []);
+  assert.equal(entreprise.dirigeant.personnePhysique[0]?.nom, 'Dupont');
+  assert.equal(entreprise.dirigeant.personnePhysique[0]?.actif, true);
+  assert.equal(entreprise.dirigeant.personneMorale[0]?.denomination, 'ERNST & YOUNG ET AUTRES');
+  assert.equal(entreprise.dirigeant.personneMorale[0]?.actif, false, 'un ancien dirigeant est conservé, inactif');
 });
 
 test('search accepte une chaîne', async () => {
