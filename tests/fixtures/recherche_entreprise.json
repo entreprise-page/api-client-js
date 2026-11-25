@@ -26,6 +26,10 @@
             "meta": {
                 "slug": "ass-copro-1-a-5-r-victor-hugo-009743865",
                 "est_actif": true,
+                "statut": {
+                    "code": "actif",
+                    "date": null
+                },
                 "est_diffusable": true,
                 "total_etablissement_actif": 1,
                 "categorie_entreprise": "PME"
@@ -107,7 +111,11 @@
             "greffe": null,
             "meta": {
                 "slug": "gain-emile-s-a-r-l-097380463",
-                "est_actif": true,
+                "est_actif": false,
+                "statut": {
+                    "code": "cessee",
+                    "date": "2019-12-31"
+                },
                 "est_diffusable": true,
                 "total_etablissement_actif": 1,
                 "categorie_entreprise": "PME"

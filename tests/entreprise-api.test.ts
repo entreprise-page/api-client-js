@@ -18,6 +18,7 @@ test('get hydrate l’entreprise', async () => {
   assert.equal(entreprise.siegeSocial?.adresse.coordonnees?.latitude, 48.112573);
   assert.equal(entreprise.registre.rcs, null, 'rcs est omis par l’API quand il est absent');
   assert.deepEqual(entreprise.finances, []);
+  assert.deepEqual(entreprise.meta.statut, { code: 'actif', date: null });
   assert.equal(entreprise.dirigeant.personnePhysique[0]?.nom, 'Dupont');
   assert.equal(entreprise.dirigeant.personnePhysique[0]?.actif, true);
   assert.equal(entreprise.dirigeant.personneMorale[0]?.denomination, 'ERNST & YOUNG ET AUTRES');
@@ -36,6 +37,7 @@ test('search accepte une chaîne', async () => {
   assert.equal(resultat.resultats.length, 2);
   assert.equal(resultat.resultats[0]?.siren, '009743865');
   assert.equal(resultat.resultats[0]?.distanceMetres, null);
+  assert.deepEqual(resultat.resultats[1]?.meta.statut, { code: 'cessee', date: '2019-12-31' });
 });
 
 test('search encode tous les critères', async () => {
@@ -48,6 +50,9 @@ test('search encode tous les critères', async () => {
     categoriesJuridiques: [5499, 5710],
     actif: false,
     zone: { latitude: 45.7672724, longitude: 4.8340594, rayon: 15 },
+    departements: ['69', '2A'],
+    region: '84',
+    codesPostaux: ['69250', '69001'],
     page: 2,
     parPage: 50,
   });
@@ -60,6 +65,9 @@ test('search encode tous les critères', async () => {
     latitude: '45.7672724',
     longitude: '4.8340594',
     rayon: '15',
+    departement: '69,2A',
+    region: '84',
+    code_postal: '69250,69001',
     page: '2',
     par_page: '50',
   });

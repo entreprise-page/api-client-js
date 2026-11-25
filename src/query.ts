@@ -17,6 +17,12 @@ export interface RechercheEntrepriseParams {
         rayon?: number | undefined;
       }
     | undefined;
+  /** Codes de département, par exemple `['69', '2A', '974']`. */
+  departements?: readonly string[] | undefined;
+  /** Code de région, par exemple `'84'` : l'ensemble de ses départements. */
+  region?: string | undefined;
+  /** Codes postaux à 5 chiffres, par exemple `['69250']`, pour viser une commune. */
+  codesPostaux?: readonly string[] | undefined;
   page?: number | undefined;
   /** De 1 à 250. */
   parPage?: number | undefined;
@@ -49,6 +55,11 @@ export function rechercheEntrepriseQuery(params: RechercheEntrepriseParams): Rec
   if (zone?.rayon !== undefined && !between(zone.rayon, 1, 500)) {
     throw new InvalidArgumentError('rayon doit être compris entre 1 et 500 km.');
   }
+  for (const code of params.codesPostaux ?? []) {
+    if (!/^\d{5}$/.test(code)) {
+      throw new InvalidArgumentError(`code postal invalide : "${code}", 5 chiffres attendus.`);
+    }
+  }
   checkPage(params.page);
   if (params.parPage !== undefined && !between(params.parPage, 1, 250)) {
     throw new InvalidArgumentError('parPage doit être compris entre 1 et 250.');
@@ -62,6 +73,9 @@ export function rechercheEntrepriseQuery(params: RechercheEntrepriseParams): Rec
     latitude: zone?.latitude.toString(),
     longitude: zone?.longitude.toString(),
     rayon: zone?.rayon?.toString(),
+    departement: params.departements?.join(','),
+    region: params.region,
+    code_postal: params.codesPostaux?.join(','),
     page: params.page?.toString(),
     par_page: params.parPage?.toString(),
   });

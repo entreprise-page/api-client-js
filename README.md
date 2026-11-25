@@ -45,6 +45,17 @@ const resultats = await client.entreprises().search({
   zone: { latitude: 45.7672724, longitude: 4.8340594, rayon: 10 },
   parPage: 50,
 });
+
+// Plutôt qu'une zone autour d'un point : départements, région ou codes postaux.
+const lyonnais = await client.entreprises().search({
+  query: '*',
+  activites: activites.map((activite) => activite.code),
+  departements: ['69'],
+  codesPostaux: ['69250'],
+});
+
+// Le statut détaille estActif : actif, inactif, ferme ou cessee, avec la date de cessation.
+console.log(entreprise.meta.statut.code, entreprise.meta.statut.date ?? '');
 ```
 
 | Méthode                                                             | Endpoint                                                                | Clé d'API | `PublicClient` |

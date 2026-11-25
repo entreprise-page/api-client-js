@@ -690,6 +690,7 @@ export interface Meta {
    * Exemple : "google-france-443061841"
    */
   readonly slug: string;
+  readonly statut: Statut;
   /**
    * todo: compter uniquement les actifs
    * Exemple : 15
@@ -704,6 +705,7 @@ export function readMeta(data: Data.Json): Meta {
     estActif: Data.bool(data, 'est_actif'),
     estDiffusable: Data.bool(data, 'est_diffusable'),
     slug: Data.string(data, 'slug'),
+    statut: Data.object(data, 'statut', readStatut),
     totalEtablissementActif: Data.int(data, 'total_etablissement_actif'),
   };
 }
@@ -1150,6 +1152,25 @@ export function readResultatRecherche(data: Data.Json): ResultatRecherche {
     numeroTva: Data.string(data, 'numero_tva'),
     registre: Data.object(data, 'registre', readRegistre),
     siegeSocial: Data.nullableObject(data, 'siege_social', readEtablissement),
+  };
+}
+
+export interface Statut {
+  /**
+   * Exemple : "inactif"
+   */
+  readonly code: string;
+  /**
+   * Exemple : "2021-06-30"
+   */
+  readonly date: string | null;
+}
+
+/** @internal */
+export function readStatut(data: Data.Json): Statut {
+  return {
+    code: Data.string(data, 'code'),
+    date: Data.nullableString(data, 'date'),
   };
 }
 

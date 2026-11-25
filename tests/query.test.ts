@@ -13,6 +13,7 @@ const criteresInvalides = {
     'entre 1 et 500',
   ],
   'par page entreprise': [(c) => c.entreprises().search({ query: 'a', parPage: 251 }), 'entre 1 et 250'],
+  'code postal tronqué': [(c) => c.entreprises().search({ query: 'a', codesPostaux: ['6925'] }), '5 chiffres attendus'],
   'page nulle': [(c) => c.entreprises().search({ query: 'a', page: 0 }), 'supérieure ou égale à 1'],
   'page non entière': [(c) => c.entreprises().search({ query: 'a', page: 1.5 }), 'supérieure ou égale à 1'],
   'activité vide': [(c) => c.activites().search('  '), 'query est obligatoire'],
