@@ -603,6 +603,10 @@ export interface Finance {
    */
   readonly chiffreAffaire: number;
   /**
+   * Exemple : "2025-12-31"
+   */
+  readonly dateClotureExercice: string | null;
+  /**
    * Exemple : 268000
    */
   readonly margeBrut: number;
@@ -617,6 +621,7 @@ export function readFinance(data: Data.Json): Finance {
   return {
     annee: Data.int(data, 'annee'),
     chiffreAffaire: Data.float(data, 'chiffre_affaire'),
+    dateClotureExercice: Data.nullableString(data, 'date_cloture_exercice'),
     margeBrut: Data.float(data, 'marge_brut'),
     resultatNet: Data.float(data, 'resultat_net'),
   };
