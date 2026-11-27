@@ -1407,6 +1407,7 @@ export interface SuiviEntreprise {
    */
   readonly dateEnActivite: string | null;
   /**
+   * DateEnCessation est la date du statut quand l'entreprise n'est plus active.
    * Exemple : "2024-12-31"
    */
   readonly dateEnCessation: string | null;
@@ -1430,6 +1431,7 @@ export interface SuiviEntreprise {
    * Exemple : "danone-552032534"
    */
   readonly slug: string;
+  readonly statut: SuiviStatut;
 }
 
 /** @internal */
@@ -1445,6 +1447,7 @@ export function readSuiviEntreprise(data: Data.Json): SuiviEntreprise {
     estDiffusable: Data.bool(data, 'est_diffusable'),
     siren: Data.string(data, 'siren'),
     slug: Data.string(data, 'slug'),
+    statut: Data.object(data, 'statut', readSuiviStatut),
   };
 }
 
@@ -1545,7 +1548,7 @@ export function readSuiviListeEntreprise(data: Data.Json): SuiviListeEntreprise 
 export interface SuiviListes {
   readonly listes: readonly SuiviListe[];
   /**
-   * Exemple : 5
+   * Exemple : 3
    */
   readonly maxListe: number;
 }
@@ -1589,6 +1592,25 @@ export function readSuiviPagination(data: Data.Json): SuiviPagination {
     pageEnCours: Data.int(data, 'page_en_cours'),
     totalPage: Data.int(data, 'total_page'),
     totalResultat: Data.int(data, 'total_resultat'),
+  };
+}
+
+export interface SuiviStatut {
+  /**
+   * Exemple : "cessee"
+   */
+  readonly code: string;
+  /**
+   * Exemple : "2024-12-31"
+   */
+  readonly date: string | null;
+}
+
+/** @internal */
+export function readSuiviStatut(data: Data.Json): SuiviStatut {
+  return {
+    code: Data.string(data, 'code'),
+    date: Data.nullableString(data, 'date'),
   };
 }
 

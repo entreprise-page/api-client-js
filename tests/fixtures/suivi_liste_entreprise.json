@@ -19,7 +19,8 @@
       "date_en_activite": "1954-01-01",
       "date_en_cessation": null,
       "est_diffusable": true,
-      "est_active": true
+      "est_active": true,
+      "statut": { "code": "actif", "date": "1954-01-01" }
     },
     {
       "siren": "552032534",
@@ -31,7 +32,8 @@
       "date_en_activite": "1955-01-01",
       "date_en_cessation": "2024-12-31",
       "est_diffusable": false,
-      "est_active": false
+      "est_active": false,
+      "statut": { "code": "cessee", "date": "2024-12-31" }
     }
   ]
 }
